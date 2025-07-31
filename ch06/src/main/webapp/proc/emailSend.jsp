@@ -22,7 +22,7 @@
 	props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 	
 	String secret = "nqsbtplaopqmiikd";
-	
+		
 	//Gmail SMTP 세션 생성
 	Session gmailSession = Session.getInstance(props, new Authenticator(){
 		
