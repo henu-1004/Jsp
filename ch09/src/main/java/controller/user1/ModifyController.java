@@ -40,7 +40,6 @@ public class ModifyController extends HttpServlet{
 		
 		//전송 데이터수신
 		String user_id = req.getParameter("user_id");
-		System.out.println(user_id);
 		String name = req.getParameter("name");
 		String hp = req.getParameter("hp");
 		String age = req.getParameter("age");
