@@ -24,5 +24,8 @@
 		
 		<h4>USER1 CRUD</h4>
 		<a href = "/ch09/user1/list.do">user1 목록</a>
+		
+		<h4>js/user1</h4>
+		<a href = "/ch09/js/user1/list.do">js/user1목록</a>
 	</body>
 </html>

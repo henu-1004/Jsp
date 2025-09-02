@@ -26,9 +26,9 @@ public class User1DAO {
 	}
 	private User1DAO() {}
 	
-	//기본 CRUD 메서드
-	public void insertUser1(User1DTO dto) {
-		
+	//기본 CRUD 메서드 >> json수업때 void타입이었는데 int로 바꿈 > rowCount관련 수정임
+	public int insertUser1(User1DTO dto) {
+		int rowCount =0;
 		try {
 			//Connection conn = DriverManager.getConnection(null); 이렇게하면 유저몰리면 서버다운됨 > 커넥션풀쓰자
 			Context ctx = (Context)new InitialContext().lookup("java:comp/env");
@@ -43,7 +43,8 @@ public class User1DAO {
 			psmt.setString(3, dto.getHp());
 			psmt.setInt(4, dto.getAge());
 			
-			psmt.executeUpdate();
+			//insert성공하면 1, 실패하면 0 >> psmt.excuteUpdate 리턴이 int임
+			rowCount = psmt.executeUpdate();
 			
 			psmt.close();
 			conn.close();
@@ -51,6 +52,7 @@ public class User1DAO {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		return rowCount;
 		
 	}
 	public User1DTO selectUser1(String user_id) {
@@ -129,7 +131,9 @@ public class User1DAO {
 		}
 		return dtoList;
 	}
-	public void updateUser1(User1DTO dto) {
+	public int updateUser1(User1DTO dto) {
+		
+		int rowCount = 0;
 		
 		try {
 			//Connection conn = DriverManager.getConnection(null); 이렇게하면 유저몰리면 서버다운됨 > 커넥션풀쓰자
@@ -145,7 +149,7 @@ public class User1DAO {
 			psmt.setInt(3, dto.getAge());
 			psmt.setString(4, dto.getUser_id());
 			
-			psmt.executeUpdate();
+			rowCount = psmt.executeUpdate();
 
 			psmt.close();
 			conn.close();
@@ -154,9 +158,12 @@ public class User1DAO {
 			e.printStackTrace();
 		}
 		
+		return rowCount;
+		
 		
 	}
-	public void deleteUser1(String user_id){
+	public int deleteUser1(String user_id){
+		int rowCount=0;
 		try {
 			Context ctx = (Context)new InitialContext().lookup("java:comp/env");
 			DataSource ds = (DataSource) ctx.lookup("jdbc/sho5223");
@@ -167,7 +174,7 @@ public class User1DAO {
 			PreparedStatement psmt = conn.prepareStatement(sql);
 			psmt.setString(1, user_id);
 			
-			psmt.executeUpdate();
+			rowCount = psmt.executeUpdate();
 			
 			psmt.close();
 			conn.close();
@@ -175,6 +182,6 @@ public class User1DAO {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		
+		return rowCount;
 	}
 }
